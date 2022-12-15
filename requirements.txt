@@ -1,0 +1,5 @@
+gspread==5.7.2
+oauth2client==4.1.3
+gspread_formatting==1.1.2
+streamlit-aggrid==0.3.3
+xlrd==2.0.1
