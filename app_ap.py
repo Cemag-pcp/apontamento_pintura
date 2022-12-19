@@ -58,7 +58,7 @@ def consultar(n_op,table1,table):
         
     filter_ = table.loc[(table['DATA DA CARGA'] == n_op)]        
     
-    filter_['qt. produzida'] = 0
+    filter_['QT. PRODUZIDA'] = 0
             
     filter_ = filter_.reset_index(drop=True)
 
@@ -68,9 +68,9 @@ def consultar(n_op,table1,table):
         tab2 = tab2.rename(columns={'QT PLAN.':'QT_ITENS'})
         
         filter_ = filter_.rename(columns={'DESCRICAO':'PEÇA'})
-        filter_['QT PROD.'] = 0
+        filter_['QT. PRODUZIDA'] = 0
         filter_['CAMBÃO'] = ''
-        filter_ = filter_[['CODIGO', 'PEÇA', 'QT_ITENS', 'COR', 'QT PROD.','CAMBÃO', 'DATA DA CARGA']]
+        filter_ = filter_[['CODIGO', 'PEÇA', 'QT_ITENS', 'COR', 'QT. PRODUZIDA','CAMBÃO', 'DATA DA CARGA']]
         
         df3 = pd.concat([filter_, tab2])
         df3 = df3.replace(np.nan, 0)
@@ -79,7 +79,7 @@ def consultar(n_op,table1,table):
 
         df3 = df3.drop_duplicates(subset=['CODIGO'], keep='last')
         
-        df3 = df3.drop(['QT PROD.', 'QT APONT.'], axis=1)
+        df3 = df3.drop(['QT. PRODUZIDA', 'QT APONT.'], axis=1)
         table_geral = pd.merge(df3, qt_total, how = 'inner', on = 'CODIGO' )
         table_geral['QT. PRODUZIDA'] = 0
         table_geral = table_geral[['CODIGO', 'PEÇA', 'QT_ITENS','COR','QT. PRODUZIDA','QT APONT.', 'CAMBÃO']]
