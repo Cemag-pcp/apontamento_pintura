@@ -48,7 +48,7 @@ def load_datas():
     list2 = wks1.get_all_records()
     table1 = pd.DataFrame(list2)
     
-    #n_op = '22/12/2022'
+    #n_op = '23/12/2022'
     
     #n_op = st.sidebar.selectbox('Selecione o código da ordem:', lista_unicos)
     
@@ -107,7 +107,7 @@ def consultar(n_op,table1,table):
                            height=400,
                            width='100%',
                            data_return_mode='AS_INPUT',
-                           update_mode='MANUAL',
+                           try_to_convert_back_to_original_types = False,
                            fit_columns_on_grid_load = True
                            )    
     filter_new = grid_response['data']    
@@ -127,11 +127,16 @@ def consultar(n_op,table1,table):
     return filter_new
 
 with st.sidebar:
+
     with st.form("my_form"):
+
         n_op = st.date_input('Selecione a data da carga')
         n_op = n_op.strftime('%d/%m/%Y')
-        button = st.form_submit_button('Ok')
+        columns = st.columns((2, 1, 2))
 
+        button_pressed = columns[1].form_submit_button('Ok')
+
+time.sleep(5)
 if n_op != '':
     sh1, n_op, table1, table = load_datas()
     consultar(n_op,table1,table)
