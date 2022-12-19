@@ -16,7 +16,7 @@ import numpy as np
 # Connect to Google Sheets
 # ======================================= #
 
-st.markdown("<h1 style='text-align: center; font-size:60px; color: Black'>Apontamento de produção</h1>", unsafe_allow_html=True)
+st.markdown("<h1 style='text-align: center; font-size:60px; color: White'>Apontamento de produção</h1>", unsafe_allow_html=True)
 
 with st.sidebar:
     image = Image.open('logo-cemagL.png')
@@ -99,16 +99,16 @@ def consultar(n_op,table1,table):
     gb.configure_column('QT. PRODUZIDA', editable=True)
     gb.configure_column('CAMBÃO', editable=True)
     grid_options = gb.build()
-    #grid_options['columnDefs'][0]['checkboxSelection']=True
-    gb.configure_grid_options(pre_selected_rows=[])
 
     grid_response = AgGrid(table_geral,
                            gridOptions=grid_options,
                            height=400,
                            width='100%',
                            data_return_mode='AS_INPUT',
+                           update_mode='MANUAL',
                            try_to_convert_back_to_original_types = False,
-                           fit_columns_on_grid_load = True
+                           fit_columns_on_grid_load = True,
+                           theme='streamlit',
                            )    
     filter_new = grid_response['data']    
     
@@ -129,14 +129,12 @@ def consultar(n_op,table1,table):
 with st.sidebar:
 
     with st.form("my_form"):
-
+        
         n_op = st.date_input('Selecione a data da carga')
         n_op = n_op.strftime('%d/%m/%Y')
         columns = st.columns((2, 1, 2))
-
         button_pressed = columns[1].form_submit_button('Ok')
 
-time.sleep(5)
 if n_op != '':
     sh1, n_op, table1, table = load_datas()
     consultar(n_op,table1,table)
