@@ -16,7 +16,7 @@ import numpy as np
 # Connect to Google Sheets
 # ======================================= #
 
-st.markdown("<h1 style='text-align: center; font-size:60px; color: White'>Apontamento de produção</h1>", unsafe_allow_html=True)
+st.markdown("<h1 style='text-align: center; font-size:60px; color: Black'>Apontamento de produção</h1>", unsafe_allow_html=True)
 
 with st.sidebar:
     image = Image.open('logo-cemagL.png')
