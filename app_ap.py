@@ -39,19 +39,13 @@ def load_datas():
     list1 = wks.get_all_records()
     table = pd.DataFrame(list1)
     table = table.drop_duplicates()
-    
-    #lista_unicos = table[['DATA DA CARGA']].drop_duplicates()[1:]
-    
+        
     name_sheet1 = 'Base ordens de produçao finalizada'
     worksheet1 = 'geral'
     sh1 = sa.open(name_sheet1)
     wks1 = sh1.worksheet(worksheet1)
     list2 = wks1.get_all_records()
     table1 = pd.DataFrame(list2)
-    
-    #n_op = '21/12/2022'
-    
-    #n_op = st.sidebar.selectbox('Selecione o código da ordem:', lista_unicos)
     
     return sh1, n_op, table1, table#, lista_unicos
 
@@ -106,14 +100,7 @@ def consultar(n_op,table1,table):
         table_geral['CAMBÃO'] = ''
         table_geral['TIPO'] = ''
      
-# =============================================================================
-#     list_codigos = table_geral['CODIGO'].unique()
-#     
-#     filter_ = filter_.rename(columns={'DATA DA CARGA':'DATA_DA_CARGA'})
-#     df4 = filter_.query('CODIGO in @list_codigos and DATA_DA_CARGA == @n_op')
-# =============================================================================
-
-    gb = GridOptionsBuilder.from_dataframe(table_geral)
+    gb = GridOptionsBuilder.from_dataframe(table_geral[['CODIGO','PEÇA','QT_ITENS','COR','QT. PRODUZIDA','QT APONT.','CAMBÃO','TIPO']])
     gb.configure_default_column(min_column_width=110)
     gb.configure_column('QT. PRODUZIDA', editable=True)
     gb.configure_column('TIPO', editable=True)
